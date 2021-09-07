@@ -6,7 +6,7 @@
   let latestDownloadURL, latestVersion;
 
   function socketSetup() {
-    socket = new WebSocket("ws://ws." + location.hostname);
+    socket = new WebSocket("wss://ws.trenchguns.com");
     socket.addEventListener("open", function (event) {
       connected = "True";
       socket.send("Hello Server!");
