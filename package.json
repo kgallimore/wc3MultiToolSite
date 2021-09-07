@@ -5,8 +5,11 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear --port 5050"
-    },
+    "start": "sirv public --no-clear --port 5050",
+    "node": "cd node && node server.js",
+    "test": "concurrently --kill-others \"npm run dev\" \"npm run node\"",
+    "production": "concurrently --kill-others \"npm run start\" \"npm run node\""
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
@@ -18,6 +21,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "concurrently": "^6.2.1",
     "sirv-cli": "^1.0.0"
   }
 }

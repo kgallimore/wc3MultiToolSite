@@ -1,7 +1,29 @@
 <script>
   export let name;
+  let connected = "False";
+  let message = "";
+  let socket;
   let latestDownloadURL, latestVersion;
-  function getLatestDownload() {
+
+  function socketSetup() {
+    socket = new WebSocket("ws://ws." + location.hostname);
+    socket.addEventListener("open", function (event) {
+      connected = "True";
+      socket.send("Hello Server!");
+    });
+
+    // Listen for messages
+    socket.addEventListener("message", function (event) {
+      message = event.data;
+      console.log("Message from server ", event.data);
+    });
+    socket.addEventListener("close", function (event) {
+      connected = "False";
+      message = "";
+      setTimeout(socketSetup, 1000);
+    });
+  }
+  function getLatestDownloadURL() {
     // read text from URL location
     var request = new XMLHttpRequest();
     request.open("GET", "https://war.trenchguns.com/publish/latest.yml", true);
@@ -16,13 +38,26 @@
       }
     };
   }
-  getLatestDownload();
+  getLatestDownloadURL();
+  socketSetup();
 </script>
 
 <main>
   <h1>Hello {name}!</h1>
+
   <p>
-    <a href="/publish/{latestDownloadURL}">Download {latestVersion}</a>
+    {#if latestDownloadURL}
+      <a href="/publish/{latestDownloadURL}">Download {latestVersion}</a>
+    {:else}
+      Could not fetch latest version
+    {/if}
+  </p>
+
+  <p>
+    Websockets Conected: {connected}
+  </p>
+  <p>
+    Message: {message}
   </p>
 </main>
 
