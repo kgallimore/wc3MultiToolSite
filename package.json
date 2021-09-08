@@ -5,9 +5,10 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear --port 5050",
+    "start": "sirv public --no-clear --port 5050 --host",
     "node": "cd node && node server.js",
-    "test": "concurrently --kill-others \"npm run dev\" \"npm run node\"",
+    "nodetest": "cd node && nodemon server.js",
+    "test": "concurrently --kill-others \"npm run dev\" \"npm run nodetest\"",
     "production": "concurrently --kill-others \"npm run start\" \"npm run node\""
   },
   "devDependencies": {

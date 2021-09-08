@@ -1,25 +1,43 @@
 <script>
   export let name;
   let connected = "False";
-  let message = "";
+  let clientSize = 0;
+  let lobbies = {};
   let socket;
   let latestDownloadURL, latestVersion;
 
   function socketSetup() {
     socket = new WebSocket("wss://ws.trenchguns.com");
+
     socket.addEventListener("open", function (event) {
       connected = "True";
-      socket.send("Hello Server!");
     });
 
     // Listen for messages
     socket.addEventListener("message", function (event) {
-      message = event.data;
-      console.log("Message from server ", event.data);
+      let message = JSON.parse(event.data);
+      switch (message.type) {
+        case "hostedLobby":
+          console.log("hosted!");
+          lobbies[message.data] = encodeURI(message.data);
+          break;
+        case "hostedLobbyClosed":
+          if (lobbies[message.data]) {
+            delete lobbies[message.data];
+            lobbies = lobbies;
+          }
+          break;
+        case "clientSizeChange":
+          console.log(message.data);
+          clientSize = message.data;
+          break;
+      }
     });
+
     socket.addEventListener("close", function (event) {
       connected = "False";
-      message = "";
+      lobbies = {};
+      clientSize = 0;
       setTimeout(socketSetup, 1000);
     });
   }
@@ -54,10 +72,16 @@
   </p>
 
   <p>
-    Websockets Conected: {connected}
+    Websockets up: {connected}
   </p>
   <p>
-    Message: {message}
+    Current users: {clientSize}
+  </p>
+  <p>
+    Current Lobbies:<br />
+    {#each Object.entries(lobbies) as [lobbyName, lobbyURL]}
+      <a href="wc3mt://join?lobbyName={lobbyURL}">{lobbyName}</a><br />
+    {/each}
   </p>
 </main>
 
