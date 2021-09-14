@@ -51,6 +51,9 @@ var app = (function () {
     function space() {
         return text(' ');
     }
+    function empty() {
+        return text('');
+    }
     function attr(node, attribute, value) {
         if (value == null)
             node.removeAttribute(attribute);
@@ -59,6 +62,9 @@ var app = (function () {
     }
     function children(element) {
         return Array.from(element.childNodes);
+    }
+    function set_style(node, key, value, important) {
+        node.style.setProperty(key, value, important ? 'important' : '');
     }
     function custom_event(type, detail, bubbles = false) {
         const e = document.createEvent('CustomEvent');
@@ -345,13 +351,31 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[9] = list[i][0];
-    	child_ctx[10] = list[i][1];
+    	child_ctx[8] = list[i];
     	return child_ctx;
     }
 
-    // (69:4) {:else}
-    function create_else_block(ctx) {
+    function get_each_context_1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[11] = list[i];
+    	return child_ctx;
+    }
+
+    function get_each_context_2(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[14] = list[i][0];
+    	child_ctx[15] = list[i][1];
+    	return child_ctx;
+    }
+
+    function get_each_context_3(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[18] = list[i];
+    	return child_ctx;
+    }
+
+    // (112:4) {:else}
+    function create_else_block_4(ctx) {
     	let t;
 
     	const block = {
@@ -369,17 +393,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block.name,
+    		id: create_else_block_4.name,
     		type: "else",
-    		source: "(69:4) {:else}",
+    		source: "(112:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (67:4) {#if latestDownloadURL}
-    function create_if_block(ctx) {
+    // (110:4) {#if latestDownloadURL}
+    function create_if_block_4(ctx) {
     	let a;
     	let t0;
     	let t1;
@@ -389,9 +413,9 @@ var app = (function () {
     		c: function create() {
     			a = element("a");
     			t0 = text("Download ");
-    			t1 = text(/*latestVersion*/ ctx[5]);
-    			attr_dev(a, "href", a_href_value = "/publish/" + /*latestDownloadURL*/ ctx[4]);
-    			add_location(a, file, 67, 6, 1765);
+    			t1 = text(/*latestVersion*/ ctx[4]);
+    			attr_dev(a, "href", a_href_value = "/publish/" + /*latestDownloadURL*/ ctx[3]);
+    			add_location(a, file, 110, 6, 3381);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, a, anchor);
@@ -399,14 +423,489 @@ var app = (function () {
     			append_dev(a, t1);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*latestVersion*/ 32) set_data_dev(t1, /*latestVersion*/ ctx[5]);
+    			if (dirty & /*latestVersion*/ 16) set_data_dev(t1, /*latestVersion*/ ctx[4]);
 
-    			if (dirty & /*latestDownloadURL*/ 16 && a_href_value !== (a_href_value = "/publish/" + /*latestDownloadURL*/ ctx[4])) {
+    			if (dirty & /*latestDownloadURL*/ 8 && a_href_value !== (a_href_value = "/publish/" + /*latestDownloadURL*/ ctx[3])) {
     				attr_dev(a, "href", a_href_value);
     			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(a);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_4.name,
+    		type: "if",
+    		source: "(110:4) {#if latestDownloadURL}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (145:12) {:else}
+    function create_else_block_3(ctx) {
+    	let t_value = /*lobbyData*/ ctx[8].mapName + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text(t_value);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*lobbies*/ 4 && t_value !== (t_value = /*lobbyData*/ ctx[8].mapName + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block_3.name,
+    		type: "else",
+    		source: "(145:12) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (143:12) {#if lobbyData.mapNameClean}
+    function create_if_block_3(ctx) {
+    	let t_value = /*lobbyData*/ ctx[8].mapNameClean + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text(t_value);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*lobbies*/ 4 && t_value !== (t_value = /*lobbyData*/ ctx[8].mapNameClean + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_3.name,
+    		type: "if",
+    		source: "(143:12) {#if lobbyData.mapNameClean}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (156:16) {:else}
+    function create_else_block_2(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Waiting for data");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block_2.name,
+    		type: "else",
+    		source: "(156:16) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (153:16) {#if lobbyData.teamData}
+    function create_if_block_2(ctx) {
+    	let t0_value = /*lobbyData*/ ctx[8].teamData.filledPlayableSlots + "";
+    	let t0;
+    	let t1;
+    	let t2_value = /*lobbyData*/ ctx[8].teamData.playableSlots + "";
+    	let t2;
+
+    	const block = {
+    		c: function create() {
+    			t0 = text(t0_value);
+    			t1 = text("/");
+    			t2 = text(t2_value);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t0, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, t2, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*lobbies*/ 4 && t0_value !== (t0_value = /*lobbyData*/ ctx[8].teamData.filledPlayableSlots + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*lobbies*/ 4 && t2_value !== (t2_value = /*lobbyData*/ ctx[8].teamData.playableSlots + "")) set_data_dev(t2, t2_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(t2);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2.name,
+    		type: "if",
+    		source: "(153:16) {#if lobbyData.teamData}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (176:26) {:else}
+    function create_else_block_1(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("N/A");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block_1.name,
+    		type: "else",
+    		source: "(176:26) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (174:26) {#if lobbyData.processed.eloList[slot]}
+    function create_if_block_1(ctx) {
+    	let t_value = /*lobbyData*/ ctx[8].processed.eloList[/*slot*/ ctx[18]] + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text(t_value);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*lobbies*/ 4 && t_value !== (t_value = /*lobbyData*/ ctx[8].processed.eloList[/*slot*/ ctx[18]] + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(174:26) {#if lobbyData.processed.eloList[slot]}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (170:20) {#each teamData.slots as slot}
+    function create_each_block_3(ctx) {
+    	let tr;
+    	let td0;
+    	let t0_value = /*slot*/ ctx[18] + "";
+    	let t0;
+    	let t1;
+    	let td1;
+    	let t2;
+
+    	function select_block_type_3(ctx, dirty) {
+    		if (/*lobbyData*/ ctx[8].processed.eloList[/*slot*/ ctx[18]]) return create_if_block_1;
+    		return create_else_block_1;
+    	}
+
+    	let current_block_type = select_block_type_3(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			tr = element("tr");
+    			td0 = element("td");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			td1 = element("td");
+    			if_block.c();
+    			t2 = space();
+    			add_location(td0, file, 171, 24, 5135);
+    			add_location(td1, file, 172, 24, 5175);
+    			add_location(tr, file, 170, 22, 5106);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, tr, anchor);
+    			append_dev(tr, td0);
+    			append_dev(td0, t0);
+    			append_dev(tr, t1);
+    			append_dev(tr, td1);
+    			if_block.m(td1, null);
+    			append_dev(tr, t2);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*lobbies*/ 4 && t0_value !== (t0_value = /*slot*/ ctx[18] + "")) set_data_dev(t0, t0_value);
+
+    			if (current_block_type === (current_block_type = select_block_type_3(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(td1, null);
+    				}
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(tr);
+    			if_block.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_3.name,
+    		type: "each",
+    		source: "(170:20) {#each teamData.slots as slot}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (160:14) {#each Object.entries(lobbyData.processed.teamList.playerTeams.data) as [teamName, teamData]}
+    function create_each_block_2(ctx) {
+    	let table;
+    	let caption;
+    	let t0_value = /*teamName*/ ctx[14] + "";
+    	let t0;
+    	let t1;
+    	let thead;
+    	let tr;
+    	let th0;
+    	let t3;
+    	let th1;
+    	let t5;
+    	let tbody;
+    	let t6;
+    	let each_value_3 = /*teamData*/ ctx[15].slots;
+    	validate_each_argument(each_value_3);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_3.length; i += 1) {
+    		each_blocks[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			table = element("table");
+    			caption = element("caption");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			thead = element("thead");
+    			tr = element("tr");
+    			th0 = element("th");
+    			th0.textContent = "Name";
+    			t3 = space();
+    			th1 = element("th");
+    			th1.textContent = "ELO";
+    			t5 = space();
+    			tbody = element("tbody");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t6 = space();
+    			add_location(caption, file, 161, 18, 4802);
+    			add_location(th0, file, 164, 22, 4905);
+    			add_location(th1, file, 165, 22, 4941);
+    			add_location(tr, file, 163, 20, 4878);
+    			add_location(thead, file, 162, 18, 4850);
+    			add_location(tbody, file, 168, 18, 5025);
+    			add_location(table, file, 160, 16, 4776);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, table, anchor);
+    			append_dev(table, caption);
+    			append_dev(caption, t0);
+    			append_dev(table, t1);
+    			append_dev(table, thead);
+    			append_dev(thead, tr);
+    			append_dev(tr, th0);
+    			append_dev(tr, t3);
+    			append_dev(tr, th1);
+    			append_dev(table, t5);
+    			append_dev(table, tbody);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(tbody, null);
+    			}
+
+    			append_dev(table, t6);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*lobbies*/ 4 && t0_value !== (t0_value = /*teamName*/ ctx[14] + "")) set_data_dev(t0, t0_value);
+
+    			if (dirty & /*Object, lobbies*/ 4) {
+    				each_value_3 = /*teamData*/ ctx[15].slots;
+    				validate_each_argument(each_value_3);
+    				let i;
+
+    				for (i = 0; i < each_value_3.length; i += 1) {
+    					const child_ctx = get_each_context_3(ctx, each_value_3, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block_3(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(tbody, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value_3.length;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(table);
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_2.name,
+    		type: "each",
+    		source: "(160:14) {#each Object.entries(lobbyData.processed.teamList.playerTeams.data) as [teamName, teamData]}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (196:14) {:else}
+    function create_else_block(ctx) {
+    	let p;
+
+    	const block = {
+    		c: function create() {
+    			p = element("p");
+    			p.textContent = "No chat messages";
+    			add_location(p, file, 196, 16, 6037);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, p, anchor);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(p);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block.name,
+    		type: "else",
+    		source: "(196:14) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (190:14) {#if lobbyData.processed.chatMessages && lobbyData.processed.chatMessages.length > 0}
+    function create_if_block(ctx) {
+    	let each_1_anchor;
+    	let each_value_1 = /*lobbyData*/ ctx[8].processed.chatMessages;
+    	validate_each_argument(each_value_1);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(target, anchor);
+    			}
+
+    			insert_dev(target, each_1_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*Object, lobbies*/ 4) {
+    				each_value_1 = /*lobbyData*/ ctx[8].processed.chatMessages;
+    				validate_each_argument(each_value_1);
+    				let i;
+
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block_1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value_1.length;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			destroy_each(each_blocks, detaching);
+    			if (detaching) detach_dev(each_1_anchor);
     		}
     	};
 
@@ -414,45 +913,266 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(67:4) {#if latestDownloadURL}",
+    		source: "(190:14) {#if lobbyData.processed.chatMessages && lobbyData.processed.chatMessages.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (82:4) {#each Object.entries(lobbies) as [lobbyName, lobbyURL]}
-    function create_each_block(ctx) {
-    	let a;
-    	let t_value = /*lobbyName*/ ctx[9] + "";
-    	let t;
-    	let a_href_value;
-    	let br;
+    // (191:16) {#each lobbyData.processed.chatMessages as message}
+    function create_each_block_1(ctx) {
+    	let p;
+    	let t0_value = /*message*/ ctx[11].sender + "";
+    	let t0;
+    	let t1;
+    	let t2_value = /*message*/ ctx[11].content + "";
+    	let t2;
+    	let t3;
 
     	const block = {
     		c: function create() {
-    			a = element("a");
-    			t = text(t_value);
-    			br = element("br");
-    			attr_dev(a, "href", a_href_value = "wc3mt://join?lobbyName=" + /*lobbyURL*/ ctx[10]);
-    			add_location(a, file, 82, 6, 2089);
-    			add_location(br, file, 82, 65, 2148);
+    			p = element("p");
+    			t0 = text(t0_value);
+    			t1 = text(": ");
+    			t2 = text(t2_value);
+    			t3 = space();
+    			attr_dev(p, "class", "striped");
+    			add_location(p, file, 191, 18, 5876);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, a, anchor);
-    			append_dev(a, t);
-    			insert_dev(target, br, anchor);
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t0);
+    			append_dev(p, t1);
+    			append_dev(p, t2);
+    			append_dev(p, t3);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*lobbies*/ 8 && t_value !== (t_value = /*lobbyName*/ ctx[9] + "")) set_data_dev(t, t_value);
+    			if (dirty & /*lobbies*/ 4 && t0_value !== (t0_value = /*message*/ ctx[11].sender + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*lobbies*/ 4 && t2_value !== (t2_value = /*message*/ ctx[11].content + "")) set_data_dev(t2, t2_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(p);
+    		}
+    	};
 
-    			if (dirty & /*lobbies*/ 8 && a_href_value !== (a_href_value = "wc3mt://join?lobbyName=" + /*lobbyURL*/ ctx[10])) {
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_1.name,
+    		type: "each",
+    		source: "(191:16) {#each lobbyData.processed.chatMessages as message}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (135:6) {#each Object.values(lobbies) as lobbyData}
+    function create_each_block(ctx) {
+    	let tr;
+    	let td0;
+    	let a;
+    	let t0_value = /*lobbyData*/ ctx[8].lobbyName + "";
+    	let t0;
+    	let a_href_value;
+    	let t1;
+    	let td1;
+    	let t2;
+    	let td2;
+    	let t3_value = /*lobbyData*/ ctx[8].playerHost + "";
+    	let t3;
+    	let t4;
+    	let td3;
+    	let details0;
+    	let summary0;
+    	let t5;
+    	let t6;
+    	let td4;
+    	let details1;
+    	let summary1;
+    	let t8;
+    	let t9;
+
+    	function select_block_type_1(ctx, dirty) {
+    		if (/*lobbyData*/ ctx[8].mapNameClean) return create_if_block_3;
+    		return create_else_block_3;
+    	}
+
+    	let current_block_type = select_block_type_1(ctx);
+    	let if_block0 = current_block_type(ctx);
+
+    	function select_block_type_2(ctx, dirty) {
+    		if (/*lobbyData*/ ctx[8].teamData) return create_if_block_2;
+    		return create_else_block_2;
+    	}
+
+    	let current_block_type_1 = select_block_type_2(ctx);
+    	let if_block1 = current_block_type_1(ctx);
+    	let each_value_2 = Object.entries(/*lobbyData*/ ctx[8].processed.teamList.playerTeams.data);
+    	validate_each_argument(each_value_2);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_2.length; i += 1) {
+    		each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    	}
+
+    	function select_block_type_4(ctx, dirty) {
+    		if (/*lobbyData*/ ctx[8].processed.chatMessages && /*lobbyData*/ ctx[8].processed.chatMessages.length > 0) return create_if_block;
+    		return create_else_block;
+    	}
+
+    	let current_block_type_2 = select_block_type_4(ctx);
+    	let if_block2 = current_block_type_2(ctx);
+
+    	const block = {
+    		c: function create() {
+    			tr = element("tr");
+    			td0 = element("td");
+    			a = element("a");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			td1 = element("td");
+    			if_block0.c();
+    			t2 = space();
+    			td2 = element("td");
+    			t3 = text(t3_value);
+    			t4 = space();
+    			td3 = element("td");
+    			details0 = element("details");
+    			summary0 = element("summary");
+    			if_block1.c();
+    			t5 = space();
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t6 = space();
+    			td4 = element("td");
+    			details1 = element("details");
+    			summary1 = element("summary");
+    			summary1.textContent = "Expand Chat";
+    			t8 = space();
+    			if_block2.c();
+    			t9 = space();
+    			attr_dev(a, "href", a_href_value = "wc3mt://join?lobbyName=" + encodeURI(/*lobbyData*/ ctx[8].lobbyName));
+    			add_location(a, file, 137, 12, 3968);
+    			add_location(td0, file, 136, 10, 3951);
+    			add_location(td1, file, 141, 10, 4114);
+    			add_location(td2, file, 148, 10, 4297);
+    			add_location(summary0, file, 151, 14, 4380);
+    			add_location(details0, file, 150, 13, 4356);
+    			add_location(td3, file, 149, 10, 4339);
+    			add_location(summary1, file, 188, 14, 5658);
+    			add_location(details1, file, 187, 12, 5634);
+    			add_location(td4, file, 186, 10, 5617);
+    			add_location(tr, file, 135, 8, 3936);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, tr, anchor);
+    			append_dev(tr, td0);
+    			append_dev(td0, a);
+    			append_dev(a, t0);
+    			append_dev(tr, t1);
+    			append_dev(tr, td1);
+    			if_block0.m(td1, null);
+    			append_dev(tr, t2);
+    			append_dev(tr, td2);
+    			append_dev(td2, t3);
+    			append_dev(tr, t4);
+    			append_dev(tr, td3);
+    			append_dev(td3, details0);
+    			append_dev(details0, summary0);
+    			if_block1.m(summary0, null);
+    			append_dev(details0, t5);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(details0, null);
+    			}
+
+    			append_dev(tr, t6);
+    			append_dev(tr, td4);
+    			append_dev(td4, details1);
+    			append_dev(details1, summary1);
+    			append_dev(details1, t8);
+    			if_block2.m(details1, null);
+    			append_dev(tr, t9);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*lobbies*/ 4 && t0_value !== (t0_value = /*lobbyData*/ ctx[8].lobbyName + "")) set_data_dev(t0, t0_value);
+
+    			if (dirty & /*lobbies*/ 4 && a_href_value !== (a_href_value = "wc3mt://join?lobbyName=" + encodeURI(/*lobbyData*/ ctx[8].lobbyName))) {
     				attr_dev(a, "href", a_href_value);
+    			}
+
+    			if (current_block_type === (current_block_type = select_block_type_1(ctx)) && if_block0) {
+    				if_block0.p(ctx, dirty);
+    			} else {
+    				if_block0.d(1);
+    				if_block0 = current_block_type(ctx);
+
+    				if (if_block0) {
+    					if_block0.c();
+    					if_block0.m(td1, null);
+    				}
+    			}
+
+    			if (dirty & /*lobbies*/ 4 && t3_value !== (t3_value = /*lobbyData*/ ctx[8].playerHost + "")) set_data_dev(t3, t3_value);
+
+    			if (current_block_type_1 === (current_block_type_1 = select_block_type_2(ctx)) && if_block1) {
+    				if_block1.p(ctx, dirty);
+    			} else {
+    				if_block1.d(1);
+    				if_block1 = current_block_type_1(ctx);
+
+    				if (if_block1) {
+    					if_block1.c();
+    					if_block1.m(summary0, null);
+    				}
+    			}
+
+    			if (dirty & /*Object, lobbies*/ 4) {
+    				each_value_2 = Object.entries(/*lobbyData*/ ctx[8].processed.teamList.playerTeams.data);
+    				validate_each_argument(each_value_2);
+    				let i;
+
+    				for (i = 0; i < each_value_2.length; i += 1) {
+    					const child_ctx = get_each_context_2(ctx, each_value_2, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block_2(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(details0, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value_2.length;
+    			}
+
+    			if (current_block_type_2 === (current_block_type_2 = select_block_type_4(ctx)) && if_block2) {
+    				if_block2.p(ctx, dirty);
+    			} else {
+    				if_block2.d(1);
+    				if_block2 = current_block_type_2(ctx);
+
+    				if (if_block2) {
+    					if_block2.c();
+    					if_block2.m(details1, null);
+    				}
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(a);
-    			if (detaching) detach_dev(br);
+    			if (detaching) detach_dev(tr);
+    			if_block0.d();
+    			if_block1.d();
+    			destroy_each(each_blocks, detaching);
+    			if_block2.d();
     		}
     	};
 
@@ -460,7 +1180,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(82:4) {#each Object.entries(lobbies) as [lobbyName, lobbyURL]}",
+    		source: "(135:6) {#each Object.values(lobbies) as lobbyData}",
     		ctx
     	});
 
@@ -469,34 +1189,41 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let main;
-    	let h1;
+    	let p0;
     	let t0;
+    	let p1;
     	let t1;
     	let t2;
     	let t3;
-    	let p0;
+    	let p2;
     	let t4;
-    	let p1;
     	let t5;
     	let t6;
-    	let t7;
-    	let p2;
+    	let table;
+    	let caption;
     	let t8;
-    	let t9;
+    	let thead;
+    	let tr;
+    	let th0;
     	let t10;
-    	let p3;
-    	let t11;
-    	let br;
+    	let th1;
     	let t12;
+    	let th2;
+    	let t14;
+    	let th3;
+    	let t16;
+    	let th4;
+    	let t18;
+    	let tbody;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*latestDownloadURL*/ ctx[4]) return create_if_block;
-    		return create_else_block;
+    		if (/*latestDownloadURL*/ ctx[3]) return create_if_block_4;
+    		return create_else_block_4;
     	}
 
     	let current_block_type = select_block_type(ctx);
     	let if_block = current_block_type(ctx);
-    	let each_value = Object.entries(/*lobbies*/ ctx[3]);
+    	let each_value = Object.values(/*lobbies*/ ctx[2]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -507,72 +1234,99 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			main = element("main");
-    			h1 = element("h1");
-    			t0 = text("Hello ");
-    			t1 = text(/*name*/ ctx[0]);
-    			t2 = text("!");
-    			t3 = space();
     			p0 = element("p");
     			if_block.c();
-    			t4 = space();
+    			t0 = space();
     			p1 = element("p");
-    			t5 = text("Websockets up: ");
-    			t6 = text(/*connected*/ ctx[1]);
-    			t7 = space();
+    			t1 = text("Websockets up: ");
+    			t2 = text(/*connected*/ ctx[0]);
+    			t3 = space();
     			p2 = element("p");
-    			t8 = text("Current users: ");
-    			t9 = text(/*clientSize*/ ctx[2]);
+    			t4 = text("Current users: ");
+    			t5 = text(/*clientSize*/ ctx[1]);
+    			t6 = space();
+    			table = element("table");
+    			caption = element("caption");
+    			caption.textContent = "Current Lobbies";
+    			t8 = space();
+    			thead = element("thead");
+    			tr = element("tr");
+    			th0 = element("th");
+    			th0.textContent = "Lobby Name/Link";
     			t10 = space();
-    			p3 = element("p");
-    			t11 = text("Current Lobbies:");
-    			br = element("br");
+    			th1 = element("th");
+    			th1.textContent = "Map Name";
     			t12 = space();
+    			th2 = element("th");
+    			th2.textContent = "Host";
+    			t14 = space();
+    			th3 = element("th");
+    			th3.textContent = "Players";
+    			t16 = space();
+    			th4 = element("th");
+    			th4.textContent = "Chat";
+    			t18 = space();
+    			tbody = element("tbody");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			add_location(h1, file, 63, 2, 1701);
-    			add_location(p0, file, 65, 2, 1727);
-    			add_location(p1, file, 73, 2, 1902);
-    			add_location(p2, file, 76, 2, 1946);
-    			add_location(br, file, 80, 20, 2015);
-    			add_location(p3, file, 79, 2, 1991);
-    			add_location(main, file, 62, 0, 1692);
+    			add_location(p0, file, 108, 2, 3343);
+    			add_location(p1, file, 116, 2, 3518);
+    			add_location(p2, file, 119, 2, 3562);
+    			add_location(caption, file, 123, 4, 3619);
+    			add_location(th0, file, 126, 8, 3685);
+    			add_location(th1, file, 127, 8, 3718);
+    			add_location(th2, file, 128, 8, 3744);
+    			set_style(th3, "width", "25%");
+    			add_location(th3, file, 129, 8, 3766);
+    			set_style(th4, "width", "25%");
+    			add_location(th4, file, 130, 8, 3809);
+    			add_location(tr, file, 125, 6, 3672);
+    			add_location(thead, file, 124, 4, 3658);
+    			add_location(tbody, file, 133, 4, 3870);
+    			add_location(table, file, 122, 2, 3607);
+    			add_location(main, file, 107, 0, 3334);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
-    			append_dev(main, h1);
-    			append_dev(h1, t0);
-    			append_dev(h1, t1);
-    			append_dev(h1, t2);
-    			append_dev(main, t3);
     			append_dev(main, p0);
     			if_block.m(p0, null);
-    			append_dev(main, t4);
+    			append_dev(main, t0);
     			append_dev(main, p1);
-    			append_dev(p1, t5);
-    			append_dev(p1, t6);
-    			append_dev(main, t7);
+    			append_dev(p1, t1);
+    			append_dev(p1, t2);
+    			append_dev(main, t3);
     			append_dev(main, p2);
-    			append_dev(p2, t8);
-    			append_dev(p2, t9);
-    			append_dev(main, t10);
-    			append_dev(main, p3);
-    			append_dev(p3, t11);
-    			append_dev(p3, br);
-    			append_dev(p3, t12);
+    			append_dev(p2, t4);
+    			append_dev(p2, t5);
+    			append_dev(main, t6);
+    			append_dev(main, table);
+    			append_dev(table, caption);
+    			append_dev(table, t8);
+    			append_dev(table, thead);
+    			append_dev(thead, tr);
+    			append_dev(tr, th0);
+    			append_dev(tr, t10);
+    			append_dev(tr, th1);
+    			append_dev(tr, t12);
+    			append_dev(tr, th2);
+    			append_dev(tr, t14);
+    			append_dev(tr, th3);
+    			append_dev(tr, t16);
+    			append_dev(tr, th4);
+    			append_dev(table, t18);
+    			append_dev(table, tbody);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(p3, null);
+    				each_blocks[i].m(tbody, null);
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*name*/ 1) set_data_dev(t1, /*name*/ ctx[0]);
-
     			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
     				if_block.p(ctx, dirty);
     			} else {
@@ -585,11 +1339,11 @@ var app = (function () {
     				}
     			}
 
-    			if (dirty & /*connected*/ 2) set_data_dev(t6, /*connected*/ ctx[1]);
-    			if (dirty & /*clientSize*/ 4) set_data_dev(t9, /*clientSize*/ ctx[2]);
+    			if (dirty & /*connected*/ 1) set_data_dev(t2, /*connected*/ ctx[0]);
+    			if (dirty & /*clientSize*/ 2) set_data_dev(t5, /*clientSize*/ ctx[1]);
 
-    			if (dirty & /*Object, lobbies*/ 8) {
-    				each_value = Object.entries(/*lobbies*/ ctx[3]);
+    			if (dirty & /*Object, lobbies, encodeURI*/ 4) {
+    				each_value = Object.values(/*lobbies*/ ctx[2]);
     				validate_each_argument(each_value);
     				let i;
 
@@ -601,7 +1355,7 @@ var app = (function () {
     					} else {
     						each_blocks[i] = create_each_block(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(p3, null);
+    						each_blocks[i].m(tbody, null);
     					}
     				}
 
@@ -632,10 +1386,46 @@ var app = (function () {
     	return block;
     }
 
+    function generateTables(lobby) {
+    	try {
+    		document.getElementById("tablesDiv").innerHTML = "";
+    		let tbl;
+
+    		Object.keys(lobby.processed.teamList.playerTeams.data).forEach(playerTeam => {
+    			tbl = document.createElement("table");
+    			tbl.classList.add("table", "table-hover", "table-striped", "table-sm");
+    			let trow = tbl.createTHead().insertRow();
+
+    			[`${playerTeam} Players`, "ELO"].forEach(label => {
+    				let th = document.createElement("th");
+    				th.appendChild(document.createTextNode(label));
+    				trow.appendChild(th);
+    			});
+
+    			let tBody = tbl.createTBody();
+
+    			lobby.processed.teamList.playerTeams.data[playerTeam].slots.forEach(player => {
+    				let row = tBody.insertRow();
+    				row.insertCell().appendChild(document.createTextNode(player));
+    				let cell = row.insertCell();
+
+    				let text = document.createTextNode(lobby.processed.eloList && lobby.processed.eloList[player]
+    				? lobby.processed.eloList[player]
+    				: "N/A");
+
+    				cell.appendChild(text);
+    			});
+
+    			document.getElementById("tablesDiv").appendChild(tbl);
+    		});
+    	} catch(e) {
+    		console.error(e.message, e.stack);
+    	}
+    }
+
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
-    	let { name } = $$props;
     	let connected = "False";
     	let clientSize = 0;
     	let lobbies = {};
@@ -643,10 +1433,10 @@ var app = (function () {
     	let latestDownloadURL, latestVersion;
 
     	function socketSetup() {
-    		socket = new WebSocket("wss://ws.trenchguns.com");
+    		socket = new WebSocket("wss://wsdev.trenchguns.com");
 
     		socket.addEventListener("open", function (event) {
-    			$$invalidate(1, connected = "True");
+    			$$invalidate(0, connected = "True");
     		});
 
     		// Listen for messages
@@ -655,26 +1445,28 @@ var app = (function () {
 
     			switch (message.type) {
     				case "hostedLobby":
-    					console.log("hosted!");
-    					$$invalidate(3, lobbies[message.data] = encodeURI(message.data), lobbies);
+    					if (message.data.lobby.mapName.match(/(\|c[0-9abcdef]{8})/gi)) {
+    						message.data.lobby.mapNameClean = message.data.lobby.mapName.replace(/(\|c[0-9abcdef]{8})|(\|r)/gi, "");
+    					}
+    					$$invalidate(2, lobbies[message.data.id] = message.data.lobby, lobbies);
     					break;
     				case "hostedLobbyClosed":
     					if (lobbies[message.data]) {
     						delete lobbies[message.data];
-    						$$invalidate(3, lobbies);
+    						$$invalidate(2, lobbies);
     					}
     					break;
     				case "clientSizeChange":
     					console.log(message.data);
-    					$$invalidate(2, clientSize = message.data);
+    					$$invalidate(1, clientSize = message.data);
     					break;
     			}
     		});
 
     		socket.addEventListener("close", function (event) {
-    			$$invalidate(1, connected = "False");
-    			$$invalidate(3, lobbies = {});
-    			$$invalidate(2, clientSize = 0);
+    			$$invalidate(0, connected = "False");
+    			$$invalidate(2, lobbies = {});
+    			$$invalidate(1, clientSize = 0);
     			setTimeout(socketSetup, 1000);
     		});
     	}
@@ -688,57 +1480,52 @@ var app = (function () {
 
     		request.onreadystatechange = function () {
     			if (request.readyState === 4 && request.status === 200) {
-    				$$invalidate(5, latestVersion = request.responseText.split("\n")[2].split(": ")[1].trim());
-    				$$invalidate(4, latestDownloadURL = latestVersion.replace(/\s/g, "%20"));
+    				$$invalidate(4, latestVersion = request.responseText.split("\n")[2].split(": ")[1].trim());
+    				$$invalidate(3, latestDownloadURL = latestVersion.replace(/\s/g, "%20"));
     			}
     		};
     	}
 
     	getLatestDownloadURL();
     	socketSetup();
-    	const writable_props = ['name'];
+    	const writable_props = [];
 
     	Object_1.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$$set = $$props => {
-    		if ('name' in $$props) $$invalidate(0, name = $$props.name);
-    	};
-
     	$$self.$capture_state = () => ({
-    		name,
     		connected,
     		clientSize,
     		lobbies,
     		socket,
     		latestDownloadURL,
     		latestVersion,
+    		generateTables,
     		socketSetup,
     		getLatestDownloadURL
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('name' in $$props) $$invalidate(0, name = $$props.name);
-    		if ('connected' in $$props) $$invalidate(1, connected = $$props.connected);
-    		if ('clientSize' in $$props) $$invalidate(2, clientSize = $$props.clientSize);
-    		if ('lobbies' in $$props) $$invalidate(3, lobbies = $$props.lobbies);
+    		if ('connected' in $$props) $$invalidate(0, connected = $$props.connected);
+    		if ('clientSize' in $$props) $$invalidate(1, clientSize = $$props.clientSize);
+    		if ('lobbies' in $$props) $$invalidate(2, lobbies = $$props.lobbies);
     		if ('socket' in $$props) socket = $$props.socket;
-    		if ('latestDownloadURL' in $$props) $$invalidate(4, latestDownloadURL = $$props.latestDownloadURL);
-    		if ('latestVersion' in $$props) $$invalidate(5, latestVersion = $$props.latestVersion);
+    		if ('latestDownloadURL' in $$props) $$invalidate(3, latestDownloadURL = $$props.latestDownloadURL);
+    		if ('latestVersion' in $$props) $$invalidate(4, latestVersion = $$props.latestVersion);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [name, connected, clientSize, lobbies, latestDownloadURL, latestVersion];
+    	return [connected, clientSize, lobbies, latestDownloadURL, latestVersion];
     }
 
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance, create_fragment, safe_not_equal, { name: 0 });
+    		init(this, options, instance, create_fragment, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -746,21 +1533,6 @@ var app = (function () {
     			options,
     			id: create_fragment.name
     		});
-
-    		const { ctx } = this.$$;
-    		const props = options.props || {};
-
-    		if (/*name*/ ctx[0] === undefined && !('name' in props)) {
-    			console_1.warn("<App> was created without expected prop 'name'");
-    		}
-    	}
-
-    	get name() {
-    		throw new Error("<App>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set name(value) {
-    		throw new Error("<App>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
