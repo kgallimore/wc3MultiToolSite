@@ -4,49 +4,9 @@
   let lobbies = {};
   let socket;
   let latestDownloadURL, latestVersion;
-  function generateTables(lobby) {
-    try {
-      document.getElementById("tablesDiv").innerHTML = "";
-      let tbl;
-      Object.keys(lobby.processed.teamList.playerTeams.data).forEach(
-        (playerTeam) => {
-          tbl = document.createElement("table");
-          tbl.classList.add(
-            "table",
-            "table-hover",
-            "table-striped",
-            "table-sm"
-          );
-          let trow = tbl.createTHead().insertRow();
-          [`${playerTeam} Players`, "ELO"].forEach((label) => {
-            let th = document.createElement("th");
-            th.appendChild(document.createTextNode(label));
-            trow.appendChild(th);
-          });
-          let tBody = tbl.createTBody();
-          lobby.processed.teamList.playerTeams.data[playerTeam].slots.forEach(
-            (player) => {
-              let row = tBody.insertRow();
-              row.insertCell().appendChild(document.createTextNode(player));
-              let cell = row.insertCell();
-              let text = document.createTextNode(
-                lobby.processed.eloList && lobby.processed.eloList[player]
-                  ? lobby.processed.eloList[player]
-                  : "N/A"
-              );
-              cell.appendChild(text);
-            }
-          );
-          document.getElementById("tablesDiv").appendChild(tbl);
-        }
-      );
-    } catch (e) {
-      console.error(e.message, e.stack);
-    }
-  }
 
   function socketSetup() {
-    socket = new WebSocket("wss://wsdev.trenchguns.com");
+    socket = new WebSocket("wss://ws.trenchguns.com");
 
     socket.addEventListener("open", function (event) {
       connected = "True";

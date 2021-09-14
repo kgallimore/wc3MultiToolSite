@@ -374,7 +374,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (112:4) {:else}
+    // (72:4) {:else}
     function create_else_block_4(ctx) {
     	let t;
 
@@ -395,14 +395,14 @@ var app = (function () {
     		block,
     		id: create_else_block_4.name,
     		type: "else",
-    		source: "(112:4) {:else}",
+    		source: "(72:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (110:4) {#if latestDownloadURL}
+    // (70:4) {#if latestDownloadURL}
     function create_if_block_4(ctx) {
     	let a;
     	let t0;
@@ -415,7 +415,7 @@ var app = (function () {
     			t0 = text("Download ");
     			t1 = text(/*latestVersion*/ ctx[4]);
     			attr_dev(a, "href", a_href_value = "/publish/" + /*latestDownloadURL*/ ctx[3]);
-    			add_location(a, file, 110, 6, 3381);
+    			add_location(a, file, 70, 6, 1950);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, a, anchor);
@@ -438,14 +438,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(110:4) {#if latestDownloadURL}",
+    		source: "(70:4) {#if latestDownloadURL}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (145:12) {:else}
+    // (105:12) {:else}
     function create_else_block_3(ctx) {
     	let t_value = /*lobbyData*/ ctx[8].mapName + "";
     	let t;
@@ -469,14 +469,14 @@ var app = (function () {
     		block,
     		id: create_else_block_3.name,
     		type: "else",
-    		source: "(145:12) {:else}",
+    		source: "(105:12) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (143:12) {#if lobbyData.mapNameClean}
+    // (103:12) {#if lobbyData.mapNameClean}
     function create_if_block_3(ctx) {
     	let t_value = /*lobbyData*/ ctx[8].mapNameClean + "";
     	let t;
@@ -500,14 +500,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(143:12) {#if lobbyData.mapNameClean}",
+    		source: "(103:12) {#if lobbyData.mapNameClean}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (156:16) {:else}
+    // (116:16) {:else}
     function create_else_block_2(ctx) {
     	let t;
 
@@ -528,14 +528,14 @@ var app = (function () {
     		block,
     		id: create_else_block_2.name,
     		type: "else",
-    		source: "(156:16) {:else}",
+    		source: "(116:16) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (153:16) {#if lobbyData.teamData}
+    // (113:16) {#if lobbyData.teamData}
     function create_if_block_2(ctx) {
     	let t0_value = /*lobbyData*/ ctx[8].teamData.filledPlayableSlots + "";
     	let t0;
@@ -569,14 +569,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(153:16) {#if lobbyData.teamData}",
+    		source: "(113:16) {#if lobbyData.teamData}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (176:26) {:else}
+    // (136:26) {:else}
     function create_else_block_1(ctx) {
     	let t;
 
@@ -597,14 +597,14 @@ var app = (function () {
     		block,
     		id: create_else_block_1.name,
     		type: "else",
-    		source: "(176:26) {:else}",
+    		source: "(136:26) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (174:26) {#if lobbyData.processed.eloList[slot]}
+    // (134:26) {#if lobbyData.processed.eloList[slot]}
     function create_if_block_1(ctx) {
     	let t_value = /*lobbyData*/ ctx[8].processed.eloList[/*slot*/ ctx[18]] + "";
     	let t;
@@ -628,14 +628,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(174:26) {#if lobbyData.processed.eloList[slot]}",
+    		source: "(134:26) {#if lobbyData.processed.eloList[slot]}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (170:20) {#each teamData.slots as slot}
+    // (130:20) {#each teamData.slots as slot}
     function create_each_block_3(ctx) {
     	let tr;
     	let td0;
@@ -662,9 +662,9 @@ var app = (function () {
     			td1 = element("td");
     			if_block.c();
     			t2 = space();
-    			add_location(td0, file, 171, 24, 5135);
-    			add_location(td1, file, 172, 24, 5175);
-    			add_location(tr, file, 170, 22, 5106);
+    			add_location(td0, file, 131, 24, 3704);
+    			add_location(td1, file, 132, 24, 3744);
+    			add_location(tr, file, 130, 22, 3675);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -700,14 +700,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(170:20) {#each teamData.slots as slot}",
+    		source: "(130:20) {#each teamData.slots as slot}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (160:14) {#each Object.entries(lobbyData.processed.teamList.playerTeams.data) as [teamName, teamData]}
+    // (120:14) {#each Object.entries(lobbyData.processed.teamList.playerTeams.data) as [teamName, teamData]}
     function create_each_block_2(ctx) {
     	let table;
     	let caption;
@@ -751,13 +751,13 @@ var app = (function () {
     			}
 
     			t6 = space();
-    			add_location(caption, file, 161, 18, 4802);
-    			add_location(th0, file, 164, 22, 4905);
-    			add_location(th1, file, 165, 22, 4941);
-    			add_location(tr, file, 163, 20, 4878);
-    			add_location(thead, file, 162, 18, 4850);
-    			add_location(tbody, file, 168, 18, 5025);
-    			add_location(table, file, 160, 16, 4776);
+    			add_location(caption, file, 121, 18, 3371);
+    			add_location(th0, file, 124, 22, 3474);
+    			add_location(th1, file, 125, 22, 3510);
+    			add_location(tr, file, 123, 20, 3447);
+    			add_location(thead, file, 122, 18, 3419);
+    			add_location(tbody, file, 128, 18, 3594);
+    			add_location(table, file, 120, 16, 3345);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, table, anchor);
@@ -815,14 +815,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(160:14) {#each Object.entries(lobbyData.processed.teamList.playerTeams.data) as [teamName, teamData]}",
+    		source: "(120:14) {#each Object.entries(lobbyData.processed.teamList.playerTeams.data) as [teamName, teamData]}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (196:14) {:else}
+    // (156:14) {:else}
     function create_else_block(ctx) {
     	let p;
 
@@ -830,7 +830,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No chat messages";
-    			add_location(p, file, 196, 16, 6037);
+    			add_location(p, file, 156, 16, 4606);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -845,14 +845,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(196:14) {:else}",
+    		source: "(156:14) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (190:14) {#if lobbyData.processed.chatMessages && lobbyData.processed.chatMessages.length > 0}
+    // (150:14) {#if lobbyData.processed.chatMessages && lobbyData.processed.chatMessages.length > 0}
     function create_if_block(ctx) {
     	let each_1_anchor;
     	let each_value_1 = /*lobbyData*/ ctx[8].processed.chatMessages;
@@ -913,14 +913,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(190:14) {#if lobbyData.processed.chatMessages && lobbyData.processed.chatMessages.length > 0}",
+    		source: "(150:14) {#if lobbyData.processed.chatMessages && lobbyData.processed.chatMessages.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (191:16) {#each lobbyData.processed.chatMessages as message}
+    // (151:16) {#each lobbyData.processed.chatMessages as message}
     function create_each_block_1(ctx) {
     	let p;
     	let t0_value = /*message*/ ctx[11].sender + "";
@@ -938,7 +938,7 @@ var app = (function () {
     			t2 = text(t2_value);
     			t3 = space();
     			attr_dev(p, "class", "striped");
-    			add_location(p, file, 191, 18, 5876);
+    			add_location(p, file, 151, 18, 4445);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -960,14 +960,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(191:16) {#each lobbyData.processed.chatMessages as message}",
+    		source: "(151:16) {#each lobbyData.processed.chatMessages as message}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (135:6) {#each Object.values(lobbies) as lobbyData}
+    // (95:6) {#each Object.values(lobbies) as lobbyData}
     function create_each_block(ctx) {
     	let tr;
     	let td0;
@@ -1056,17 +1056,17 @@ var app = (function () {
     			if_block2.c();
     			t9 = space();
     			attr_dev(a, "href", a_href_value = "wc3mt://join?lobbyName=" + encodeURI(/*lobbyData*/ ctx[8].lobbyName));
-    			add_location(a, file, 137, 12, 3968);
-    			add_location(td0, file, 136, 10, 3951);
-    			add_location(td1, file, 141, 10, 4114);
-    			add_location(td2, file, 148, 10, 4297);
-    			add_location(summary0, file, 151, 14, 4380);
-    			add_location(details0, file, 150, 13, 4356);
-    			add_location(td3, file, 149, 10, 4339);
-    			add_location(summary1, file, 188, 14, 5658);
-    			add_location(details1, file, 187, 12, 5634);
-    			add_location(td4, file, 186, 10, 5617);
-    			add_location(tr, file, 135, 8, 3936);
+    			add_location(a, file, 97, 12, 2537);
+    			add_location(td0, file, 96, 10, 2520);
+    			add_location(td1, file, 101, 10, 2683);
+    			add_location(td2, file, 108, 10, 2866);
+    			add_location(summary0, file, 111, 14, 2949);
+    			add_location(details0, file, 110, 13, 2925);
+    			add_location(td3, file, 109, 10, 2908);
+    			add_location(summary1, file, 148, 14, 4227);
+    			add_location(details1, file, 147, 12, 4203);
+    			add_location(td4, file, 146, 10, 4186);
+    			add_location(tr, file, 95, 8, 2505);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -1180,7 +1180,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(135:6) {#each Object.values(lobbies) as lobbyData}",
+    		source: "(95:6) {#each Object.values(lobbies) as lobbyData}",
     		ctx
     	});
 
@@ -1272,22 +1272,22 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(p0, file, 108, 2, 3343);
-    			add_location(p1, file, 116, 2, 3518);
-    			add_location(p2, file, 119, 2, 3562);
-    			add_location(caption, file, 123, 4, 3619);
-    			add_location(th0, file, 126, 8, 3685);
-    			add_location(th1, file, 127, 8, 3718);
-    			add_location(th2, file, 128, 8, 3744);
+    			add_location(p0, file, 68, 2, 1912);
+    			add_location(p1, file, 76, 2, 2087);
+    			add_location(p2, file, 79, 2, 2131);
+    			add_location(caption, file, 83, 4, 2188);
+    			add_location(th0, file, 86, 8, 2254);
+    			add_location(th1, file, 87, 8, 2287);
+    			add_location(th2, file, 88, 8, 2313);
     			set_style(th3, "width", "25%");
-    			add_location(th3, file, 129, 8, 3766);
+    			add_location(th3, file, 89, 8, 2335);
     			set_style(th4, "width", "25%");
-    			add_location(th4, file, 130, 8, 3809);
-    			add_location(tr, file, 125, 6, 3672);
-    			add_location(thead, file, 124, 4, 3658);
-    			add_location(tbody, file, 133, 4, 3870);
-    			add_location(table, file, 122, 2, 3607);
-    			add_location(main, file, 107, 0, 3334);
+    			add_location(th4, file, 90, 8, 2378);
+    			add_location(tr, file, 85, 6, 2241);
+    			add_location(thead, file, 84, 4, 2227);
+    			add_location(tbody, file, 93, 4, 2439);
+    			add_location(table, file, 82, 2, 2176);
+    			add_location(main, file, 67, 0, 1903);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1386,43 +1386,6 @@ var app = (function () {
     	return block;
     }
 
-    function generateTables(lobby) {
-    	try {
-    		document.getElementById("tablesDiv").innerHTML = "";
-    		let tbl;
-
-    		Object.keys(lobby.processed.teamList.playerTeams.data).forEach(playerTeam => {
-    			tbl = document.createElement("table");
-    			tbl.classList.add("table", "table-hover", "table-striped", "table-sm");
-    			let trow = tbl.createTHead().insertRow();
-
-    			[`${playerTeam} Players`, "ELO"].forEach(label => {
-    				let th = document.createElement("th");
-    				th.appendChild(document.createTextNode(label));
-    				trow.appendChild(th);
-    			});
-
-    			let tBody = tbl.createTBody();
-
-    			lobby.processed.teamList.playerTeams.data[playerTeam].slots.forEach(player => {
-    				let row = tBody.insertRow();
-    				row.insertCell().appendChild(document.createTextNode(player));
-    				let cell = row.insertCell();
-
-    				let text = document.createTextNode(lobby.processed.eloList && lobby.processed.eloList[player]
-    				? lobby.processed.eloList[player]
-    				: "N/A");
-
-    				cell.appendChild(text);
-    			});
-
-    			document.getElementById("tablesDiv").appendChild(tbl);
-    		});
-    	} catch(e) {
-    		console.error(e.message, e.stack);
-    	}
-    }
-
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
@@ -1433,7 +1396,7 @@ var app = (function () {
     	let latestDownloadURL, latestVersion;
 
     	function socketSetup() {
-    		socket = new WebSocket("wss://wsdev.trenchguns.com");
+    		socket = new WebSocket("wss://ws.trenchguns.com");
 
     		socket.addEventListener("open", function (event) {
     			$$invalidate(0, connected = "True");
@@ -1501,7 +1464,6 @@ var app = (function () {
     		socket,
     		latestDownloadURL,
     		latestVersion,
-    		generateTables,
     		socketSetup,
     		getLatestDownloadURL
     	});
