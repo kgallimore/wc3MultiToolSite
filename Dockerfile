@@ -9,11 +9,10 @@ RUN npm install
 
 COPY ./src ./src
 COPY ./public ./public
+COPY node/src/server.ts ./node/src/
+COPY node/*.json ./node/
 
 RUN npm run-script build
-
-COPY node/server.js ./node/
-COPY node/package*.json ./node/
 
 RUN cd ./node/ && npm install && cd ..
 
