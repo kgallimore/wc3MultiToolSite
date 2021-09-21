@@ -1,12 +1,16 @@
 <script>
   let connected = "False";
   let clientSize = 0;
-  let lobbies = {};
+  let lobbyLookup = {};
   let socket;
   let latestDownloadURL, latestVersion;
 
   function socketSetup() {
-    socket = new WebSocket("wss://ws.trenchguns.com");
+    if (window.location.hostname.substr(0, 3) == "dev") {
+      socket = new WebSocket("wss://wsdev.trenchguns.com");
+    } else {
+      socket = new WebSocket("wss://ws.trenchguns.com");
+    }
 
     socket.addEventListener("open", function (event) {
       connected = "True";
@@ -18,22 +22,25 @@
       switch (message.type) {
         case "hostedLobby":
           if (message.data.lobby.mapName.match(/(\|c[0-9abcdef]{8})/gi)) {
-            message.data.lobby.mapNameClean =
-              message.data.lobby.mapName.replace(
-                /(\|c[0-9abcdef]{8})|(\|r)/gi,
-                ""
-              );
+            message.data.lobby.mapNameClean = message.data.lobby.mapName.replace(
+              /(\|c[0-9abcdef]{8})|(\|r)/gi,
+              ""
+            );
+          } else {
+            message.data.lobby.mapNameClean = message.data.lobby.mapName;
           }
-          lobbies[message.data.id] = message.data.lobby;
+          lobbyLookup[message.data.id] = message.data.lobby;
           break;
         case "hostedLobbyClosed":
-          if (lobbies[message.data]) {
-            delete lobbies[message.data];
-            lobbies = lobbies;
+          if (lobbyLookup[message.data]) {
+            delete lobbyLookup[message.data];
+            lobbyLookup = lobbyLookup;
           }
           break;
+        case "lobbyUpdate":
+          lobbyProcessedUpdate(message.data.socketID, message.data);
+          break;
         case "clientSizeChange":
-          console.log(message.data);
           clientSize = message.data;
           break;
       }
@@ -41,10 +48,30 @@
 
     socket.addEventListener("close", function (event) {
       connected = "False";
-      lobbies = {};
+      lobbyLookup = {};
       clientSize = 0;
       setTimeout(socketSetup, 1000);
     });
+  }
+
+  function lobbyProcessedUpdate(socketID, messageData) {
+    let key = messageData.key;
+    let value = messageData.value;
+    let teamName = messageData.teamName || "";
+    if (lobbyLookup[socketID] && lobbyLookup[socketID].processed) {
+      if (["otherTeams", "playerTeams", "specTeams"].includes(key)) {
+        lobbyLookup[socketID].processed.teamList[key].data[teamName].slots = value.slots;
+        lobbyLookup[socketID].processed.teamList[key].data[teamName].players =
+          value.players;
+      } else if (key === "chatMessages") {
+        lobbyLookup[socketID].processed.chatMessages = [
+          ...lobbyLookup[socketID].processed.chatMessages,
+          value,
+        ];
+      } else if (lobbyLookup[socketID].processed[key] !== value) {
+        lobbyLookup[socketID].processed[key] = value;
+      }
+    }
   }
   function getLatestDownloadURL() {
     // read text from URL location
@@ -53,10 +80,7 @@
     request.send(null);
     request.onreadystatechange = function () {
       if (request.readyState === 4 && request.status === 200) {
-        latestVersion = request.responseText
-          .split("\n")[2]
-          .split(": ")[1]
-          .trim();
+        latestVersion = request.responseText.split("\n")[2].split(": ")[1].trim();
         latestDownloadURL = latestVersion.replace(/\s/g, "%20");
       }
     };
@@ -70,15 +94,15 @@
     {#if latestDownloadURL}
       <a href="/publish/{latestDownloadURL}">Download {latestVersion}</a>
     {:else}
-      Could not fetch latest version
+      Could not fetch latest version download link
     {/if}
   </p>
 
   <p>
-    Websockets up: {connected}
-  </p>
-  <p>
-    Current users: {clientSize}
+    {#if connected}Current users of Wc3 Multi-Tool: {clientSize}
+    {:else}
+      Websockets are down.
+    {/if}
   </p>
   <table>
     <caption>Current Lobbies</caption>
@@ -92,7 +116,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each Object.values(lobbies) as lobbyData}
+      {#each Object.values(lobbyLookup) as lobbyData}
         <tr>
           <td>
             <a href="wc3mt://join?lobbyName={encodeURI(lobbyData.lobbyName)}"
@@ -100,68 +124,81 @@
             >
           </td>
           <td>
-            {#if lobbyData.mapNameClean}
-              {lobbyData.mapNameClean}
-            {:else}
-              {lobbyData.mapName}
-            {/if}
+            {lobbyData.mapNameClean}
           </td>
           <td>{lobbyData.playerHost}</td>
           <td
-            ><details>
-              <summary>
-                {#if lobbyData.teamData}
-                  {lobbyData.teamData.filledPlayableSlots}/{lobbyData.teamData
-                    .playableSlots}
-                {:else}
-                  Waiting for data
-                {/if}</summary
-              >
-              {#each Object.entries(lobbyData.processed.teamList.playerTeams.data) as [teamName, teamData]}
-                <table>
-                  <caption>{teamName}</caption>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>ELO</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {#each teamData.slots as slot}
+            ><div style="display:flex; max-height: 50vh; overflow: auto;">
+              <details style="width: 100%">
+                <summary>
+                  {#if lobbyData.teamData}
+                    {lobbyData.teamData.filledPlayableSlots}/{lobbyData.teamData
+                      .playableSlots}
+                  {:else}
+                    Waiting for data
+                  {/if}</summary
+                >
+                {#each Object.entries(lobbyData.processed.teamList.playerTeams.data) as [teamName, teamData]}
+                  <table>
+                    <caption>{teamName}</caption>
+                    <thead>
                       <tr>
-                        <td>{slot}</td>
-                        <td>
-                          {#if lobbyData.processed.eloList[slot]}
-                            {lobbyData.processed.eloList[slot]}
-                          {:else}
-                            N/A
-                          {/if}
-                        </td>
+                        <th>Name</th>
+                        <th>ELO</th>
                       </tr>
-                    {/each}
-                  </tbody>
-                </table>
-              {/each}
-            </details></td
+                    </thead>
+                    <tbody>
+                      {#if teamData.slots}
+                        {#each teamData.slots as slot}
+                          <tr>
+                            <td>{slot}</td>
+                            <td>
+                              {#if lobbyData.processed.eloList && lobbyData.processed.eloList[slot]}
+                                {lobbyData.processed.eloList[slot]}
+                              {:else}
+                                N/A
+                              {/if}
+                            </td>
+                          </tr>
+                        {/each}
+                      {/if}
+                    </tbody>
+                  </table>
+                {/each}
+              </details>
+            </div></td
           >
           <td>
-            <details>
-              <summary> Expand Chat</summary>
-              {#if lobbyData.processed.chatMessages && lobbyData.processed.chatMessages.length > 0}
-                {#each lobbyData.processed.chatMessages as message}
-                  <p class="striped">
-                    {message.sender}: {message.content}
-                  </p>
-                {/each}
-              {:else}
-                <p>No chat messages</p>
-              {/if}
-            </details></td
+            <div
+              style="display:flex; max-height: 50vh; overflow: auto; flex-direction: column-reverse;"
+            >
+              <details style="width:100%">
+                <summary> Expand Chat</summary>
+                {#if lobbyData.processed.chatMessages && lobbyData.processed.chatMessages.length > 0}
+                  {#each lobbyData.processed.chatMessages as message}
+                    <p class="striped">
+                      {message.sender}: {message.content}
+                    </p>
+                  {/each}
+                {:else}
+                  <p>No chat messages</p>
+                {/if}
+              </details>
+            </div></td
           >
         </tr>
       {/each}
     </tbody>
   </table>
+  <iframe
+    title="wc3 Multi-Tol Discord"
+    src="https://discord.com/widget?id=876867362593337365&theme=dark"
+    width="350"
+    height="350"
+    allowtransparency="true"
+    frameborder="0"
+    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+  />
 </main>
 
 <style>

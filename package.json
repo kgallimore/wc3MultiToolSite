@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && cd node\\dist && tsc",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear --port 5050 --host",
-    "node": "cd node && node server.js",
-    "nodetest": "cd node && nodemon server.js",
+    "node": "cd node\\dist && nodemon server.js",
+    "nodetest": "cd node\\src && nodemon server.ts",
     "test": "concurrently --kill-others \"npm run dev\" \"npm run nodetest\"",
     "production": "concurrently --kill-others \"npm run start\" \"npm run node\""
   },
