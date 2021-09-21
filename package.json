@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "rollup -c && cd node && cd src && npx tsc",
+    "build": "rollup -c && cd node && npx tsc",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear --port 5050 --host",
     "node": "cd node\\dist && nodemon server.js",
