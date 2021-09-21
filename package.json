@@ -6,7 +6,7 @@
     "build": "rollup -c && cd node && npx tsc",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear --port 5050 --host",
-    "node": "cd node\\dist && nodemon server.js",
+    "node": "cd node && cd dist && pm2-runtime server.js",
     "nodetest": "cd node\\src && nodemon server.ts",
     "test": "concurrently --kill-others \"npm run dev\" \"npm run nodetest\"",
     "production": "concurrently --kill-others \"npm run start\" \"npm run node\""

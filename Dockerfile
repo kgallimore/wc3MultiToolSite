@@ -7,6 +7,8 @@ COPY package*.json ./
 
 RUN npm install
 
+RUN npm install pm2 -g
+
 COPY ./src ./src
 COPY ./public ./public
 COPY node/src/server.ts ./node/src/
