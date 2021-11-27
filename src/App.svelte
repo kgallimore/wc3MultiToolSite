@@ -108,6 +108,7 @@
     <caption>Current Lobbies</caption>
     <thead>
       <tr>
+        <th>Region</th>
         <th>Lobby Name/Link</th>
         <th>Map Name</th>
         <th>Host</th>
@@ -118,6 +119,7 @@
     <tbody>
       {#each Object.values(lobbyLookup) as lobbyData}
         <tr>
+          <td>{lobbyData.region}</td>
           <td>
             <a href="wc3mt://join?lobbyName={encodeURI(lobbyData.lobbyName)}"
               >{lobbyData.lobbyName}</a
