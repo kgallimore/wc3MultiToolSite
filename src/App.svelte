@@ -87,6 +87,13 @@
   }
   getLatestDownloadURL();
   socketSetup();
+  if (window.location.search) {
+    let searchParams = new URLSearchParams(window.location.search);
+    let lobbyName = searchParams.get("lobbyName");
+    if (lobbyName) {
+      window.open(`wc3mt://join?lobbyName=${encodeURI(lobbyName)}`, "_blank");
+    }
+  }
 </script>
 
 <main>
