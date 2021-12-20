@@ -1,5 +1,7 @@
 import * as ws from "ws";
-
+interface ExtWebSocket extends ws.WebSocket {
+  id: string;
+}
 const { nanoid } = require("nanoid");
 const compareVersions = require("compare-versions");
 
@@ -65,20 +67,20 @@ interface lobby {
 interface lobbyLookup {
   [key: string]: lobby;
 }
+
 let clientSockets = new Set();
 let hubSockets = new Set();
 let lobbyLookup = <lobbyLookup>{};
-let latestVersion = "0.4.5";
+let latestVersion = "0.8.0";
 
-wss.on("connection", function connection(socket, req) {
+wss.on("connection", function connection(socket: ExtWebSocket, req) {
   socket.id = nanoid();
   if (req.url.match(/^\/[A-Za-z0-9_-]{21}$/)) {
     clientSockets.add(socket);
     sendToHub("clientSizeChange", clientSockets.size);
-
     socket.on("message", function incoming(message) {
       try {
-        message = JSON.parse(message);
+        message = JSON.parse(message.toString());
         if (compareVersions(message.appVersion, latestVersion) > -1) {
           switch (message.type) {
             case "hostedLobby":

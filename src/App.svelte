@@ -6,7 +6,7 @@
   let latestDownloadURL, latestVersion;
 
   function socketSetup() {
-    if (window.location.hostname.substr(0, 3) == "dev") {
+    if (window.location.hostname.includes("dev")) {
       socket = new WebSocket("wss://wsdev.trenchguns.com");
     } else {
       socket = new WebSocket("wss://ws.trenchguns.com");
