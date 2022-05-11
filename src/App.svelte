@@ -6,7 +6,7 @@
   let latestDownloadURL, latestVersion;
 
   function socketSetup() {
-    if (window.location.hostname.substr(0, 3) == "dev") {
+    if (window.location.hostname.includes("dev")) {
       socket = new WebSocket("wss://wsdev.trenchguns.com");
     } else {
       socket = new WebSocket("wss://ws.trenchguns.com");
@@ -87,6 +87,13 @@
   }
   getLatestDownloadURL();
   socketSetup();
+  if (window.location.search) {
+    let searchParams = new URLSearchParams(window.location.search);
+    let lobbyName = searchParams.get("lobbyName");
+    if (lobbyName) {
+      window.open(`wc3mt://join?lobbyName=${encodeURI(lobbyName)}`, "_blank");
+    }
+  }
 </script>
 
 <main>
@@ -108,6 +115,7 @@
     <caption>Current Lobbies</caption>
     <thead>
       <tr>
+        <th>Region</th>
         <th>Lobby Name/Link</th>
         <th>Map Name</th>
         <th>Host</th>
@@ -118,6 +126,7 @@
     <tbody>
       {#each Object.values(lobbyLookup) as lobbyData}
         <tr>
+          <td>{lobbyData.region}</td>
           <td>
             <a href="wc3mt://join?lobbyName={encodeURI(lobbyData.lobbyName)}"
               >{lobbyData.lobbyName}</a
