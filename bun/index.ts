@@ -78,7 +78,8 @@ const server = Bun.serve<{ id: string }>({
     }
     const url = new URL(req.url);
     if(url.pathname === "/api/ip"){
-        return Response.json({ip:server.requestIP(req)?.address});
+        const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || server.requestIP(req)?.address;
+        return Response.json({ip});
     }
     return Response.redirect('https://war.trenchguns.com');
 },
