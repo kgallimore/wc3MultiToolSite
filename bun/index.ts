@@ -64,12 +64,11 @@ interface lobbyLookup {
 let hubSockets = new Set<
   ServerWebSocket<{
     id: string;
-    authToken: string;
   }>
 >();
 let lobbyLookup = <lobbyLookup>{};
 
-const server = Bun.serve<{ authToken: string; id: string }>({
+const server = Bun.serve<{ id: string }>({
   fetch(req, server) {
     const success = server.upgrade(req);
     if (success) {
@@ -93,7 +92,7 @@ const server = Bun.serve<{ authToken: string; id: string }>({
       hubSockets.delete(ws);
     },
     async open(ws) {
-      ws.data.id = randomUUID();
+      ws.data = {id: randomUUID()};
       hubSockets.add(ws);
     },
   },
