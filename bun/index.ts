@@ -1,5 +1,5 @@
 import type { ServerWebSocket } from "bun";
-
+import {randomUUID} from 'crypto';
 interface teamList {
   data: {
     [key: string]: {
@@ -93,7 +93,7 @@ const server = Bun.serve<{ authToken: string; id: string }>({
       hubSockets.delete(ws);
     },
     async open(ws) {
-      ws.data.id = crypto.randomUUID();
+      ws.data.id = randomUUID();
       hubSockets.add(ws);
     },
   },
